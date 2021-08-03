@@ -1,8 +1,7 @@
 <template>
-  <div>
-    labels
-    <Nav/>
-  </div>
+  <layout>
+    <p>Labels</p>
+  </layout>
 </template>
 
 <script lang="ts">
@@ -11,6 +10,3 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
-</style>
