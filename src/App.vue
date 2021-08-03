@@ -12,7 +12,14 @@
   padding: 0;
   box-sizing: border-box;
 }
-
+body{
+  //默认底部导航的行高
+  line-height: 1.5;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
