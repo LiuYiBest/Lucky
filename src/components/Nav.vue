@@ -1,48 +1,48 @@
 <template>
-  <nav class="nav">
-    <router-link to="/money" class="item">
-      <Icon  name="money"/>
-      <span>记账</span>
+  <nav>
+    <router-link to="/money" class="item" active-class="selected">
+      <Icon name="money"/>
+      记账
     </router-link>
-    |
-    <router-link to="/labels" class="item">
+    <router-link to="/labels" class="item" active-class="selected">
       <Icon name="labels"/>
-      <span>明细</span>
+      标签
     </router-link>
-    |
-    <router-link to="/statistics" class="item">
+    <router-link to="/statistics" class="item" active-class="selected">
       <Icon name="statistics"/>
-      <span>统计</span>
+      统计
     </router-link>
   </nav>
 </template>
 
-
 <script lang="ts">
-
 export default {
   name: 'Nav'
 };
 </script>
 
 <style lang="scss" scoped>
-.nav {
-  //给框添加阴影
+nav {
   display: flex;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.1);
+  //边距阴影
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.25);
   flex-direction: row;
+  font-size: 12px;
   > .item {
-    padding: 2px;
-    width: 33.3333%;
+    padding: 2px 0;
+    width: 33.33333%;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    .icon{
+    .icon {
       width: 32px;
       height: 32px;
+      color: red;
     }
   }
+  > .item.selected.icon  {
+    color: red;
+  }
 }
-
 </style>
