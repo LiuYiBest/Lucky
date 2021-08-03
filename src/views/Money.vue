@@ -1,6 +1,8 @@
 <template>
-  <div>
-    money
+  <div class="nav-wrapper">
+    <div class="content">
+      money
+    </div>
     <Nav/>
   </div>
 
@@ -14,5 +16,16 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+  .nav-wrapper{
+    border: 1px solid green;
+    display: flex;
+    flex-direction: column;
+    max-height: 100vh;
+  }
 
+  .content{
+
+    overflow: auto;
+    flex-grow: 1;
+  }
 </style>
