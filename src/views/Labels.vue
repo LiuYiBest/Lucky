@@ -1,37 +1,40 @@
 <template>
   <layout>
     <ol class="tags">
-      <li>
-        <span>衣</span>
+      <li v-for="tag in tags" :key="tag">
+        <span>{{ tag }}</span>
         <Icon name="right"/>
-
-      </li>
-      <li>
-        <span>食</span>
-        <Icon name="right"/>
-
-      </li>
-      <li>
-        <span>住</span>
-        <Icon name="right"/>
-
-      </li>
-      <li>
-        <span>行</span>
-        <Icon name="right"/>
-
       </li>
     </ol>
     <div class="createTag-wrapper">
-      <button class="createTag">新建标签</button>
+      <button class="createTag" @click="crateTag">新建标签</button>
     </div>
   </layout>
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Labels',
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+import tagListModel from '@/models/tagListModel';
+
+tagListModel.fetch();
+@Component
+export default class Labels extends Vue {
+  tags = tagListModel.data;
+
+  crateTag() {
+    const name = window.prompt('请输入标签');
+    if (name) {
+      const message = tagListModel.create(name);
+      if (message === 'duplicated') {
+        window.alert('标签名已存在，请重新输入');
+      }else if(message === 'success'){
+        window.alert('成功保存')
+      }
+    }
+  }
 };
+
 </script>
 
 
@@ -40,12 +43,14 @@ export default {
   background: white;
   font-size: 16px;
   padding-left: 16px;
+
   > li {
     min-height: 44px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #e6e6e6;
+
     svg {
       width: 32px;
       height: 32px;
@@ -54,6 +59,7 @@ export default {
     }
   }
 }
+
 .createTag {
   background: #767676;
   color: white;
@@ -61,6 +67,7 @@ export default {
   border: none;
   height: 40px;
   padding: 0 16px;
+
   &-wrapper {
     text-align: center;
     padding: 16px;
