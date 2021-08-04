@@ -24,7 +24,6 @@ export default class NumberPad extends Vue {
   }
 }
 
-
 </script>
 
 <style lang="scss" scoped>
