@@ -14,13 +14,12 @@ try {
 }
 
 export default {
-  props:['name'],
+  props: ['name'],
   name: 'Icon'
 };
 </script>
 
 <style lang="scss" scoped>
-//加入通用css代码（引入一次就行）：
 .icon {
   width: 1em; height: 1em;
   vertical-align: -0.15em;
