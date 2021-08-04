@@ -9,15 +9,18 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component,Prop} from 'vue-property-decorator';
 
-@Component({
-  props: {
-    proMessage: String
-  }
-})
+@Component
+
 export default class Types extends Vue {
   type = '-';   //-负号表示支出  +加号表示收入
+
+  //Prop告诉Vue propA不是data是prop
+  //Number告诉Vue propA运行时是个Number
+  //propA是属性名
+  //number | undefined 告诉TS PropA的编译时类型
+  @Prop(Number) propA: number | undefined;
 
   selectType(type: string) {
     if (type !== '-' && type !== '+') {
@@ -25,24 +28,10 @@ export default class Types extends Vue {
     }
     this.type = type;
   }
+
 }
 
-// export default {
-//   name: 'Types',
-//   data() {
-//     return {
-//       type: '-'  //-负号表示支出  +加号表示收入
-//     }
-//   },
-//   methods: {
-//     selectType(type) {
-//       if (type !== '-' && type !== '+') {
-//         throw new Error('type is unknown');
-//       }
-//       this.type = type;
-//     }
-//   }
-// };
+
 </script>
 
 <style lang="scss" scoped>
