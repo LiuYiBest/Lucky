@@ -17,16 +17,11 @@ import Tags from '@/components/Money/Tags.vue';
 
 import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
+import model from '@/model';
 
-window.localStorage.setItem('version', '1.0.1');
+const recordList = model.fetch();
 
-type Record = {
-  tags: string[],
-  notes: string,
-  type: string,
-  amount: number
-  createAt?: Date  //类 /构造函数
-}
+// window.localStorage.setItem('version', '1.0.1');
 
 @Component({
   components: {Tags, Notes, Types, NumberPad},
@@ -34,11 +29,10 @@ type Record = {
 
 export default class Money extends Vue {
   tags = ['其它', '衣', '食', '住', '行'];
-
-  recordList: Record[] =
-      JSON.parse(window.localStorage.getItem('recordList') || '[]');
-
-  record: Record = {tags: [], notes: '', type: '-', amount: 0};
+  recordList: RecordItem = recordList;
+  record: RecordItem = {
+    tags: [], notes: '', type: '-', amount: 0
+  };
 
   onUpdateTags(value: string[]) {
     this.record.tags = value;
@@ -47,18 +41,16 @@ export default class Money extends Vue {
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }
-
   saveRecord() {
-    const record2: Record = JSON.parse(JSON.stringify(this.record));
-    record2.createAt = new Date();
+    const record2: RecordItem = model.clone(this.record);
+    record2.createdAt = new Date();
     this.recordList.push(record2);
-    console.log(this.recordList);
   }
-
   @Watch('recordList')
   onRecordListChange() {
-    window.localStorage.setItem('recordList', JSON.stringify(this.recordList));
+    model.save(this.recordList);
   }
+
 };
 </script>
 
