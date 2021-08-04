@@ -7,23 +7,42 @@
   </div>
 </template>
 
-<script lang="js">
-export default {
-  name: 'Types',
-  data() {
-    return {
-      type: '-'  //-负号表示支出  +加号表示收入
-    }
-  },
-  methods: {
-    selectType(type) {
-      if (type !== '-' && type !== '+') {
-        throw new Error('type is unknown');
-      }
-      this.type = type;
-    }
+<script lang="ts">
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+
+@Component({
+  props: {
+    proMessage: String
   }
-};
+})
+export default class Types extends Vue {
+  type = '-';   //-负号表示支出  +加号表示收入
+
+  selectType(type: string) {
+    if (type !== '-' && type !== '+') {
+      throw new Error('type is unknown');
+    }
+    this.type = type;
+  }
+}
+
+// export default {
+//   name: 'Types',
+//   data() {
+//     return {
+//       type: '-'  //-负号表示支出  +加号表示收入
+//     }
+//   },
+//   methods: {
+//     selectType(type) {
+//       if (type !== '-' && type !== '+') {
+//         throw new Error('type is unknown');
+//       }
+//       this.type = type;
+//     }
+//   }
+// };
 </script>
 
 <style lang="scss" scoped>
@@ -49,7 +68,7 @@ export default {
       width: 100%;
       height: 4px;
       //background: #333;
-      border-bottom: 2px solid  #333;
+      border-bottom: 2px solid #333;
     }
   }
 }
