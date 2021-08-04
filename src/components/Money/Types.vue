@@ -20,6 +20,7 @@ export default class Types extends Vue {
   //Number告诉Vue propA运行时是个Number
   //propA是属性名
   //number | undefined 告诉TS PropA的编译时类型
+
   @Prop(Number) propA!: number | undefined;
 
   selectType(type: string) {
