@@ -33,6 +33,7 @@ const tagList = tagListModel.fetch();
 export default class Money extends Vue {
   tags = tagList;
   recordList: RecordItem[] = recordList;
+
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0
   };

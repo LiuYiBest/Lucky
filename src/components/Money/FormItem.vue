@@ -5,7 +5,7 @@
       <input type="text"
              :value="value"
              @input="onValueChanged($event.target.value)"
-             :placeholder="this.placeholder">
+             :placeholder="placeholder">
     </label>
   </div>
 </template>
@@ -17,9 +17,11 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 @Component
 export default class FormItem extends Vue {
   @Prop({default: ''}) readonly value!: string;
+
   @Prop({required: true}) fieldName!: string;
   @Prop() placeholder?: string;
-  @Watch('value')
+
+
   onValueChanged(value: string) {
     this.$emit('update:value', value);
   }
@@ -32,7 +34,7 @@ export default class FormItem extends Vue {
   padding-left: 16px;
   display: flex;
   align-items: center;
-  background-color:#d9d9d9 ;
+  background-color:#e6e6e6 ;
   .name {
     padding-right: 16px;
   }
