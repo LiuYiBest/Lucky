@@ -1,5 +1,5 @@
-import recordStore from '@/lib/recordStore';
-import tagStore from '@/lib/tagStore';
+import recordStore from '@/store/recordStore';
+import tagStore from '@/store/tagStore';
 
 
 const store = {
