@@ -31,7 +31,7 @@ export default class EditLabel extends Vue {
 
   created() {
     //TODO
-   this.tag = store.findTag(this.$route.params.id);
+   // this.tag = store.findTag(this.$route.params.id);
    if (!this.tag){
      this.$router.replace('/404')
    }
