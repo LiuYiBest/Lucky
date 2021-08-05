@@ -7,8 +7,6 @@ const store = {
     createRecord: (record: RecordItem) => {
         recordListModel.creat(record);
     },
-    //1.全局变量太多
-    //2.严重依赖window
 
     //tag仓库
     tagList: tagListModel.fetch(),
