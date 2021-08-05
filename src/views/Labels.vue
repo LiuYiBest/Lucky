@@ -33,7 +33,7 @@ export default class Labels extends Vue {
       }
     }
   }
-};
+}
 
 </script>
 
