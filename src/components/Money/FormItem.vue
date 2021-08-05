@@ -1,10 +1,10 @@
 <template>
   <div>
-    <label class="notes">
+    <label class="formItem">
       <span class="name">{{this.fieldName}}</span>
       <input type="text"
              :value="value"
-             @input="onValueChange($event.target.value)"
+             @input="onValueChanged($event.target.value)"
              :placeholder="this.placeholder">
     </label>
   </div>
@@ -16,40 +16,34 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class FormItem extends Vue {
-  @Prop({default :''}) readonly value!:string;
-
-  @Prop({required:true}) fieldName!:string;
-  @Prop() placeholder?:string;
-
+  @Prop({default: ''}) readonly value!: string;
+  @Prop({required: true}) fieldName!: string;
+  @Prop() placeholder?: string;
   @Watch('value')
-  onValueChange(value:string){
-    this.$emit('update:value',value)
-  }
-
-  onInput(event :KeyboardEvent){
-    const input = event.target as HTMLButtonElement;
-    this.value = input.value;
+  onValueChanged(value: string) {
+    this.$emit('update:value', value);
   }
 }
-
 </script>
 
 <style lang="scss" scoped>
-.notes {
+.formItem {
   font-size: 14px;
-  background: #f5f5f5;
   padding-left: 16px;
   display: flex;
   align-items: center;
+  background-color:#d9d9d9 ;
   .name {
     padding-right: 16px;
   }
   input {
-    height: 64px;
+    height: 40px;
     flex-grow: 1;
-    background: transparent;
+    //background: transparent;
     border: none;
     padding-right: 16px;
+    background-color: #e6e6e6;
+
   }
 }
 </style>
