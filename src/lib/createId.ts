@@ -5,7 +5,7 @@ let id: number = parseInt(window.localStorage
 
 function createId() {
     id++;
-    window.localStorage.setItem('idMax',id.toString())
+    window.localStorage.setItem('_idMax',id.toString())
     return id;
 }
 
