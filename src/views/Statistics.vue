@@ -24,6 +24,7 @@ import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
+
 @Component({
   components: {Tabs},
 })
