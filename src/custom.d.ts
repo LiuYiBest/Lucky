@@ -4,11 +4,11 @@ type RootState = {
     currentTag?: Tag
 }
 type RecordItem = {
-    tags: string[]
+    tags: Tag[]
     notes: string
     type: string
-    amount: number // 数据类型 object | string
-    createdAt?: string  // 类 / 构造函数
+    amount: number
+    createdAt?: string  // 类
 }
 
 type Tag = {
