@@ -26,6 +26,7 @@ import Button from '@/components/Button.vue';
   components: {Button},
   computed:{
     tags(){
+      console.log(this.$store.state.tagList)
       return this.$store.state.tagList;
     }
   }
