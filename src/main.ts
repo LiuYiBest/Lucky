@@ -25,7 +25,7 @@ new Vue({
 if (document.documentElement.clientWidth) {
     window.alert('为了预览效果，请使用手机打开招财猫记账');
     const img = document.createElement('img');
-    img.src = '/ma.png';
+    img.src = './ma.png';
     img.style.position = 'fixed';
     img.style.left = '50%';
     img.style.top = '50%';
