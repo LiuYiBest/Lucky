@@ -35,5 +35,4 @@ if (document.documentElement.clientWidth) {
     img.onclick = () => {
         img.style.visibility = 'hidden';
     };
-
 }
