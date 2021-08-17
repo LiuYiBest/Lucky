@@ -49,7 +49,6 @@ export default class Statistics extends Vue {
     div.scrollLeft = div.scrollWidth;
   }
 
-
   beautify(string: string) {
     const day = dayjs(string);
     const now = dayjs();
