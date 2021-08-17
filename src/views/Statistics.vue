@@ -186,13 +186,22 @@ export default class Statistics extends Vue {
 
 ::v-deep {
   .type-tabs-item {
-    background: #C4C4C4;
+    background: #FFF47D;
 
     &.selected {
-      background: white;
+      background: #FFE459;
 
       &::after {
-        display: none;
+        //display: none;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 4px;
+        //background: #666
+        background: linear-gradient(90deg, rgba(175,221,34,1) 0%, rgba(222,230,240,1) 38%, rgba(233,231,239,1) 58%, rgba(0,212,255,1) 100%);
+
       }
     }
   }

@@ -1,8 +1,8 @@
 <template>
   <Layout class-prefix="layout">
+
     <NumberPad :value.sync="record.amount" @submit="saveRecord"/>
-    <Tabs :data-source="recordTypeList"
-          :value.sync="record.type"/>
+
     <div class="createdAt">
       <FormItem field-name="日期"
                 type="date"
@@ -17,6 +17,8 @@
       />
     </div>
     <Tags @update:value="record.tags = $event"/>
+    <Tabs :data-source="recordTypeList"
+          :value.sync="record.type"/>
   </Layout>
 </template>
 
