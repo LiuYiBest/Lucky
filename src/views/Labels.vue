@@ -11,7 +11,7 @@
     <div class="createTag-wrapper">
       <Button class="createTag"
               @click="createTag">
-        新建标签
+        新增标签
       </Button>
     </div>
   </Layout>
