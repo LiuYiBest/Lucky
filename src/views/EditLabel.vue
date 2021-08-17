@@ -8,10 +8,10 @@
     <div class="form-wrapper">
       <FormItem :value="tag.name"
                 @update:value="update"
-                field-name="标签名" placeholder="请输入标签名"/>
+                field-name="标签名:" placeholder="请输入标签名"/>
     </div>
     <div class="button-wrapper">
-      <Button @click="remove">删除标签</Button>
+      <Button @click="remove" class="moveTag">删除标签</Button>
     </div>
   </Layout>
 </template>
@@ -59,14 +59,15 @@ export default class EditLabel extends Vue {
 
 <style lang="scss" scoped>
 .navBar {
+  background-color: #ffe459;
   text-align: center;
   font-size: 16px;
   padding: 12px 16px;
-  background: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
   > .title {
+
   }
   > .leftIcon {
     width: 24px;
@@ -85,5 +86,8 @@ export default class EditLabel extends Vue {
   text-align: center;
   padding: 16px;
   margin-top: 44-16px;
+}
+.moveTag{
+  background-color: #c89b40;
 }
 </style>

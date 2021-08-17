@@ -44,7 +44,7 @@ export default class Statistics extends Vue {
   }
 
   mounted() {
-    console.log(this.groupedList);
+    // console.log(this.groupedList);
     const div = (this.$refs.chartWrapper as HTMLDivElement);
     div.scrollLeft = div.scrollWidth;
   }
