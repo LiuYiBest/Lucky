@@ -1212,7 +1212,7 @@
   dependencies:
     "@types/node" "*"
 
-"@types/echarts@^4.6.3":
+"@types/echarts@^4.9.10":
   version "4.9.10"
   resolved "https://registry.nlark.com/@types/echarts/download/@types/echarts-4.9.10.tgz?cache=0&sync_timestamp=1628820205094&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fecharts%2Fdownload%2F%40types%2Fecharts-4.9.10.tgz#a3dd598fbb3b36e797f3ce771be3fa8dc18a7da6"
   integrity sha1-o91Zj7s7NueX8853G+P6jcGKfaY=
