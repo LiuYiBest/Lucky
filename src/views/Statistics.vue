@@ -6,14 +6,14 @@
     </div>
     <ol v-if="groupedList.length>0">
       <li v-for="(group, index) in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
+        <h3 class="title">{{beautify(group.title)}} <span>￥{{group.total}}</span></h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
               class="record"
           >
-            <span>{{ tagString(item.tags) }}</span>
-            <span class="notes">{{ item.notes }}</span>
-            <span>￥{{ item.amount }} </span>
+            <span>{{tagString(item.tags)}}</span>
+            <span class="notes">{{item.notes}}</span>
+            <span>￥{{item.amount}} </span>
           </li>
         </ol>
       </li>
@@ -23,8 +23,6 @@
     </div>
   </Layout>
 </template>
-
-
 <script lang="ts">
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
@@ -33,7 +31,8 @@ import recordTypeList from '@/constants/recordTypeList';
 import dayjs from 'dayjs';
 import clone from '@/lib/clone';
 import Chart from '@/components/Chart.vue';
-
+import _ from 'lodash';
+import day from 'dayjs';
 @Component({
   components: {Tabs, Chart},
 })
@@ -42,9 +41,9 @@ export default class Statistics extends Vue {
     return tags.length === 0 ? '无' :
         tags.map(t => t.name).join('，');
   }
-
   mounted() {
-    const div = (this.$refs.chartWrapper as HTMLDivElement).scrollLeft = 9999;
+    const div = (this.$refs.chartWrapper as HTMLDivElement);
+    div.scrollLeft = div.scrollWidth;
   }
 
   beautify(string: string) {
@@ -64,44 +63,68 @@ export default class Statistics extends Vue {
     }
   }
 
+  get y() {
+    const today = new Date();
+    const array = [];
+    for (let i = 0; i <= 29; i++) {
+      // this.recordList = [{date:7.3, value:100}, {date:7.2, value:200}]
+      const dateString = day(today)
+          .subtract(i, 'day').format('YYYY-MM-DD');
+      const found = _.find(this.recordList, {
+        createdAt: dateString
+      });
+      array.push({
+        date: dateString, value: found ? found.amount : 0
+      });
+    }
+    array.sort((a, b) => {
+      if (a.date > b.date) {
+        return 1;
+      } else if (a.date === b.date) {
+        return 0;
+      } else {
+        return -1;
+      }
+    });
+    return array;
+  }
+
   get x() {
-    console.log(this.recordList);
+    const keys = this.y.map(item => item.date);
+    const values = this.y.map(item => item.value);
     return {
       grid: {
         left: 0,
-        right: 0
+        right: 0,
       },
-
       xAxis: {
-        // itemStyle: { borderColor : 'red'},
         type: 'category',
-        data: [
-          '1', '2', '3', '4', '5', '6', '7', '8', '9', '10',
-          '11', '12', '13', '14', '15', '16', '17', '18', '19', '20',
-          '21', '22', '23', '24', '25', '26', '27', '28', '29', '30',
-        ],
+        data: keys,
         axisTick: {alignWithLabel: true},
-        axisLine: {lineStyle: {color: '#000'}}
+        axisLine: {lineStyle: {color: '#666'}},
+        axisLabel: {
+          formatter: function (value: string, index: number) {
+            return value.substr(5)
+          }
+        }
       },
       yAxis: {
         type: 'value',
         show: false
       },
       series: [{
-        symbol:'circle',
-        itemStyle: {border: 1, color: '#bbbbbb',borderColor : '#2f4554'},
+        symbol: 'circle',
         symbolSize: 12,
-        data: [
-          820, 932, 901, 934, 1290, 1330, 1320,
-          820, 932, 901, 934, 1290, 1330, 1320,
-          820, 932, 901, 934, 1290, 1330, 1320,
-          820, 932, 901, 934, 1290, 1330, 1320, 1, 2
-        ],
+        itemStyle: {borderWidth: 1, color: '#666', borderColor: '#666'},
+        // lineStyle: {width: 10},
+        data: values,
         type: 'line'
       }],
-      tooltip: {show: true,triggerOn:'click',
-        formatter:'{c}',
-        position:'top'}
+      tooltip: {
+        show: true, triggerOn: 'click',
+        position: 'top',
+        formatter: '{c}'
+      }
     };
   }
 
@@ -114,9 +137,7 @@ export default class Statistics extends Vue {
     const newList = clone(recordList)
         .filter(r => r.type === this.type)
         .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
-    if (newList.length === 0) {
-      return [];
-    }
+    if (newList.length === 0) {return [];}
     type Result = { title: string, total?: number, items: RecordItem[] }[]
     const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
     for (let i = 1; i < newList.length; i++) {
@@ -130,18 +151,14 @@ export default class Statistics extends Vue {
     }
     result.map(group => {
       group.total = group.items.reduce((sum, item) => {
-        console.log(sum);
-        console.log(item);
         return sum + item.amount;
       }, 0);
     });
     return result;
   }
-
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
-
   type = '-';
   recordTypeList = recordTypeList;
 }
@@ -152,30 +169,24 @@ export default class Statistics extends Vue {
   max-width: 100%;
   height: 400px;
 }
-
 .noResult {
   padding: 16px;
   text-align: center;
 }
-
 ::v-deep {
   .type-tabs-item {
     background: #C4C4C4;
-
     &.selected {
       background: white;
-
       &::after {
         display: none;
       }
     }
   }
-
   .interval-tabs-item {
     height: 48px;
   }
 }
-
 %item {
   padding: 8px 16px;
   line-height: 24px;
@@ -183,28 +194,22 @@ export default class Statistics extends Vue {
   justify-content: space-between;
   align-content: center;
 }
-
 .title {
   @extend %item;
 }
-
 .record {
   background: white;
   @extend %item;
 }
-
 .notes {
   margin-right: auto;
   margin-left: 16px;
   color: #999;
 }
-
 .chart {
   width: 430%;
-
   &-wrapper {
     overflow: auto;
-
     &::-webkit-scrollbar {
       display: none;
     }
