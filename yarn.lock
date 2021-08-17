@@ -4154,7 +4154,7 @@ ecc-jsbn@~0.1.1:
     jsbn "~0.1.0"
     safer-buffer "^2.1.0"
 
-echarts@^4.8.0:
+echarts@^4.9.0:
   version "4.9.0"
   resolved "https://registry.nlark.com/echarts/download/echarts-4.9.0.tgz#a9b9baa03f03a2a731e6340c55befb57a9e1347d"
   integrity sha1-qbm6oD8Doqcx5jQMVb77V6nhNH0=
