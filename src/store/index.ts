@@ -31,6 +31,7 @@ const store = new Vuex.Store({
                 }
             }
         },
+
         removeTag(state, id: string) {
             let index = -1;
             for (let i = 0; i < state.tagList.length; i++) {
@@ -53,7 +54,8 @@ const store = new Vuex.Store({
         },
         createRecord(state, record) {
             const record2: RecordItem = clone(record);
-            record2.createdAt = new Date().toISOString();
+
+            record2.createdAt = record2.createdAt|| new Date().toISOString();
             state.recordList.push(record2);
             store.commit('saveRecords');
         },
@@ -62,8 +64,9 @@ const store = new Vuex.Store({
                 JSON.stringify(state.recordList));
         },
         fetchTags(state) {
+
             state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
-            if(!state.tagList || state.tagList.length === 0 ){
+            if (!state.tagList || state.tagList.length === 0) {
                 store.commit('createTag','服装');
                 store.commit('createTag','餐饮');
                 store.commit('createTag','交通');

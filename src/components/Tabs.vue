@@ -14,12 +14,16 @@ type DataSourceItem = { text: string, value: string }
 export default class Tabs extends Vue {
   @Prop({required: true, type: Array})
   dataSource!: DataSourceItem[];
+
   @Prop(String)
   readonly value!: string;
+
   @Prop(String)
   classPrefix?: string;
+
   @Prop({type: String, default: '64px'})
   height!: string;
+
   liClass(item: DataSourceItem) {
     return {
       [this.classPrefix + '-tabs-item']: this.classPrefix,
@@ -34,6 +38,7 @@ export default class Tabs extends Vue {
 
 <style lang="scss" scoped>
 .tabs {
+
   background: #C4C4C4;
   display: flex;
   text-align: center;
