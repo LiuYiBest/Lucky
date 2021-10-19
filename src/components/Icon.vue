@@ -20,6 +20,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+//加入icon通用css代码（引入一次就行）：
 .icon {
   width: 1em; height: 1em;
   vertical-align: -0.15em;

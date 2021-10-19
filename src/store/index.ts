@@ -8,41 +8,54 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 
+    //状态类型
     state: {
         recordList: [],
         tagList: [],
         createTagError:null,
         currentTag: undefined
     } as RootState,
+
     mutations: {
+        //设置当前的标签
         setCurrentTag(state, id: string) {
             state.currentTag = state.tagList.filter(t => t.id === id)[0];
         },
+
+        //更新标签   state.tagList就是this.data
         updateTag(state, payload: { id: string, name: string }) {
             const {id, name} = payload;
+            // idList是state中对应的id值
             const idList = state.tagList.map(item => item.id);
+            //如果idList的索引大于0，则获取到所有的names
             if (idList.indexOf(id) >= 0) {
                 const names = state.tagList.map(item => item.name);
                 if (names.indexOf(name) >= 0) {
                     window.alert('标签名重复了');
                 } else {
+                    // 找到对应的id,返回给tag，然后tag的name修改为新的name
                     const tag = state.tagList.filter(item => item.id === id)[0];
                     tag.name = name;
+                    //需要通过commit存储数据
                     store.commit('saveTags');
                 }
             }
         },
 
+        //EditLabel页面删除标签
         removeTag(state, id: string) {
             let index = -1;
+            //获取tagList的第i个位置上的id,找到id并赋值给index
             for (let i = 0; i < state.tagList.length; i++) {
                 if (state.tagList[i].id === id) {
                     index = i;
                     break;
                 }
             }
+            // 索引上有值，则删除一个标签
             if (index >= 0) {
                 state.tagList.splice(index, 1);
+                //保存saveTags
                 store.commit('saveTags');
                 router.back();
             } else {
@@ -50,25 +63,12 @@ const store = new Vuex.Store({
             }
 
         },
-        fetchRecords(state) {
-            state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
 
-        },
-        createRecord(state, record) {
-            const record2: RecordItem = clone(record);
-
-            record2.createdAt = record2.createdAt|| new Date().toISOString();
-            state.recordList.push(record2);
-            store.commit('saveRecords');
-        },
-        saveRecords(state) {
-            window.localStorage.setItem('recordList',
-                JSON.stringify(state.recordList));
-        },
-
+        //获取Tags标签
         fetchTags(state) {
+            //获取本地存储中的tagList
             state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
-
+            //模拟Tags数据
             if (!state.tagList || state.tagList.length === 0) {
                 store.commit('createTag','服装');
                 store.commit('createTag','餐饮');
@@ -79,20 +79,55 @@ const store = new Vuex.Store({
                 store.commit('createTag','理财');
             }
         },
+
+        //创建一个Tag标签
         createTag(state, name: string) {
             state.createTagError = null;
+            //获取到所有的标签名字
             const names = state.tagList.map(item => item.name);
+            //如果标签名重复  则报错：标签名重复了，请重新确认
             if (names.indexOf(name) >= 0) {
                 state.createTagError = new Error('Duplicate tag name');
                 return;
             }
+            //id为ID生成器所存储的值 需要使用toString转为字符串
             const id = createId().toString();
+            // 将传递过来的标签添加到 id和name
             state.tagList.push({id, name: name});
+            //保存标签
             store.commit('saveTags');
         },
+
+        //将Tags标签数据存储在本地   使用localStorage
         saveTags(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
         },
+
+
+
+        //Records就是Money中四个组件的所记录的值
+        //获取记录的值存储到本地   由于存储的是字符串，需要将JSON字符串反序列化成JSON对象
+        fetchRecords(state) {
+            state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
+        },
+
+        //创建一个Record记录
+        createRecord(state, record) {
+            //创建一个record的深拷贝   使用clone方法
+            const record2: RecordItem = clone(record);
+
+            record2.createdAt = record2.createdAt|| new Date().toISOString();
+            state.recordList.push(record2);
+            store.commit('saveRecords');
+        },
+
+        //存储记录
+        saveRecords(state) {
+            window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
+        }
+
+
+
     }
 });
 

@@ -5,6 +5,7 @@
       <span class="title">编辑标签</span>
       <span class="rightIcon"/>
     </div>
+
     <div class="form-wrapper">
       <FormItem :value="tag.name"
                 @update:value="update"
@@ -21,13 +22,17 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import FormItem from '@/components/Money/FormItem.vue';
 import Button from '@/components/Button.vue';
+
 @Component({
   components: {Button, FormItem},
 })
+
+
 export default class EditLabel extends Vue {
   get tag() {
     return this.$store.state.currentTag;
   }
+
   created() {
     const id = this.$route.params.id;
     this.$store.commit('fetchTags');
@@ -39,6 +44,7 @@ export default class EditLabel extends Vue {
       console.log('has tag');
     }
   }
+
   update(name: string) {
     if (this.tag) {
       this.$store.commit('updateTag', {
@@ -46,11 +52,13 @@ export default class EditLabel extends Vue {
       });
     }
   }
+
   remove() {
     if (this.tag) {
       this.$store.commit('removeTag', this.tag.id);
     }
   }
+
   goBack() {
     this.$router.back();
   }

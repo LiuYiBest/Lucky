@@ -9,18 +9,15 @@ import Icon from '@/components/Icon.vue';
 
 Vue.config.productionTip = false;
 
-
 Vue.component('Nav', Nav);
 Vue.component('Layout', Layout);
 Vue.component('Icon', Icon);
-
 
 new Vue({
     router,
     store,
     render: h => h(App)
 }).$mount('#app');
-
 
 if (document.documentElement.clientWidth) {
     window.alert('为了预览效果，请使用手机打开招财猫记账');
