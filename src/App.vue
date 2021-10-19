@@ -18,6 +18,11 @@ body {
   background-color: #fff;
 }
 
+a{
+  text-decoration: none;
+  color: inherit;
+}
+
 #app {
   box-shadow: 0 0 9px 3px #999;
   max-width: 500px;

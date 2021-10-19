@@ -1,6 +1,5 @@
 <template>
   <nav>
-
     <router-link to="/labels" class="item" active-class="selected">
       <Icon name="labels"/>
       <span>明细</span>
@@ -47,7 +46,5 @@ nav {
   > .item.selected{
     color: rgba(255, 164, 0);
   }
-
 }
-
 </style>

@@ -16,9 +16,12 @@
                 :value.sync="record.notes"
       />
     </div>
+
     <Tags @update:value="record.tags = $event"/>
+
     <Tabs :data-source="recordTypeList"
           :value.sync="record.type"/>
+
   </Layout>
 </template>
 
@@ -30,6 +33,7 @@ import Tags from '@/components/Money/Tags.vue';
 import {Component} from 'vue-property-decorator';
 import Tabs from '@/components/Tabs.vue';
 import recordTypeList from '@/constants/recordTypeList';
+
 @Component({
   components: {Tabs, Tags, FormItem, NumberPad},
 })
@@ -37,16 +41,23 @@ export default class Money extends Vue {
   get recordList() {
     return this.$store.state.recordList;
   }
+
   recordTypeList = recordTypeList;
+
+  //声明一个记录
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString()
   };
+
   created() {
     this.$store.commit('fetchRecords');
   }
+
   onUpdateNotes(value: string) {
     this.record.notes = value;
   }
+
+  //保存Tags标签
   saveRecord() {
     if (!this.record.tags || this.record.tags.length === 0) {
       return window.alert('请至少选择一个标签');

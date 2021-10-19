@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 
+
 const  map:{[key:string]:string}={
     'Duplicate tag name':'标签名重复了，请重新确认'
 }
+
 
 @Component
 export class TagHelper extends Vue {
