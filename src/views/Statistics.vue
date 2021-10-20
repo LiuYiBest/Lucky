@@ -45,9 +45,9 @@ import day from 'dayjs';
 
 export default class Statistics extends Vue {
 
+  //没有数据
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' :
-        tags.map(t => t.name).join('，');
+    return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
   }
 
   //获取记录的数据
@@ -66,14 +66,14 @@ export default class Statistics extends Vue {
   //使用支持和收入常量
   recordTypeList = recordTypeList;
 
-
+  //判断日期是哪一天
   beautify(string: string) {
     const day = dayjs(string);
     const now = dayjs();
+
     if (day.isSame(now, 'day')) {
       return '今天';
     } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
-      console.log('hi');
       return '昨天';
     } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
       return '前天';
@@ -149,8 +149,7 @@ export default class Statistics extends Vue {
     };
   }
 
-
-
+//对数据列表进行排序
   get groupedList() {
     const {recordList} = this;
     const newList = clone(recordList)
@@ -160,11 +159,13 @@ export default class Statistics extends Vue {
       return [];
     }
 
-
+    // 展示的列表类型
     type Result = { title: string, total?: number, items: RecordItem[] }[]
 
-    //获取时间
+    //列表数据
     const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
+
+    //数据分组
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
@@ -174,6 +175,7 @@ export default class Statistics extends Vue {
         result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
       }
     }
+    //计算每日的总金额
     result.map(group => {
       group.total = group.items.reduce((sum, item) => {
         return sum + item.amount;
