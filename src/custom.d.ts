@@ -1,4 +1,4 @@
-//基础
+//基础类型
 type RootState = {
     recordList: RecordItem[],      //Money四个组件的值 为数组类型
     createTagError:Error|null,      //创建标签失败
@@ -12,7 +12,7 @@ type RecordItem = {
     notes: string         //备注
     type: string           //支出与收入 ‘+’&‘-’
     amount: number         //计算器的值
-    createdAt?: string  // 类
+    createdAt?: string     //记录Tag创建的时间
 }
 
 

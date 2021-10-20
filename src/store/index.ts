@@ -8,16 +8,17 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 
-    //状态类型
+
     state: {
         recordList: [],
         tagList: [],
         createTagError:null,
-        currentTag: undefined
+        currentTag: undefined       //当前的Tag
     } as RootState,
 
     mutations: {
-        //设置当前的标签
+
+        //设置当前的标签    参数为传入的路由id
         setCurrentTag(state, id: string) {
             state.currentTag = state.tagList.filter(t => t.id === id)[0];
         },
@@ -55,8 +56,9 @@ const store = new Vuex.Store({
             // 索引上有值，则删除一个标签
             if (index >= 0) {
                 state.tagList.splice(index, 1);
-                //保存saveTags
+                //保存Tags成功
                 store.commit('saveTags');
+                //回退到上一次页面
                 router.back();
             } else {
                 window.alert('删除失败');
@@ -68,6 +70,7 @@ const store = new Vuex.Store({
         fetchTags(state) {
             //获取本地存储中的tagList
             state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
+
             //模拟Tags数据
             if (!state.tagList || state.tagList.length === 0) {
                 store.commit('createTag','服装');
@@ -82,6 +85,7 @@ const store = new Vuex.Store({
 
         //创建一个Tag标签
         createTag(state, name: string) {
+            //存储为空则报错
             state.createTagError = null;
             //获取到所有的标签名字
             const names = state.tagList.map(item => item.name);
@@ -92,32 +96,45 @@ const store = new Vuex.Store({
             }
             //id为ID生成器所存储的值 需要使用toString转为字符串
             const id = createId().toString();
-            // 将传递过来的标签添加到 id和name
+            // 将传递过来的 id和name添加到tagList
             state.tagList.push({id, name: name});
             //保存标签
             store.commit('saveTags');
         },
 
-        //将Tags标签数据存储在本地   使用localStorage
+        //将tagList数据存储在本地
         saveTags(state) {
             window.localStorage.setItem('tagList', JSON.stringify(state.tagList));
         },
 
 
 
-        //Records就是Money中四个组件的所记录的值
+        //Records就是Money.vue中四个组件的所记录的值
         //获取记录的值存储到本地   由于存储的是字符串，需要将JSON字符串反序列化成JSON对象
         fetchRecords(state) {
             state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
+            // 模拟Records数据
+            if (!state.recordList || state.recordList.length === 0) {
+                store.commit('createRecord',{tags: [{id: "6", name: "住房"}], notes: "123", type: "-", amount: 52, createdAt: "2021-10-08"});
+                store.commit('createRecord',{tags: [{id: "6", name: "住房"}], notes: "11223", type: "-", amount: 512, createdAt: "2021-10-10"});
+                // store.commit('createRecord','');
+                // store.commit('createRecord','');
+                // store.commit('createRecord','服装');
+                // store.commit('createRecord','服装');
+                // store.commit('createRecord','服装');
+                // store.commit('createRecord','服装');
+            }
         },
 
         //创建一个Record记录
         createRecord(state, record) {
-            //创建一个record的深拷贝   使用clone方法
+            //创建一个record2       克隆一个record的深拷贝   使用clone方法
             const record2: RecordItem = clone(record);
-
+            //创建记录的时间    将当前时间转为字符串
             record2.createdAt = record2.createdAt|| new Date().toISOString();
+            //将record2的值push到recordList中
             state.recordList.push(record2);
+            //存储记录数据
             store.commit('saveRecords');
         },
 
@@ -125,8 +142,6 @@ const store = new Vuex.Store({
         saveRecords(state) {
             window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
         }
-
-
 
     }
 });

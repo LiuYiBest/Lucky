@@ -1,39 +1,52 @@
 <template>
   <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
+
     <li v-for="item in dataSource" :key="item.value" class="tabs-item"
         :class="liClass(item)" @click="select(item)">{{item.text}}
     </li>
+
   </ul>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
+
+//数据源类型
 type DataSourceItem = { text: string, value: string }
+
 @Component
 export default class Tabs extends Vue {
+  //数据源
   @Prop({required: true, type: Array})
   dataSource!: DataSourceItem[];
 
+  //切换的值
   @Prop(String)
   readonly value!: string;
 
+  //样式
   @Prop(String)
   classPrefix?: string;
 
+  //接收高度
   @Prop({type: String, default: '64px'})
   height!: string;
 
+  //li样式前缀
   liClass(item: DataSourceItem) {
     return {
       [this.classPrefix + '-tabs-item']: this.classPrefix,
       selected: item.value === this.value
     };
   }
+
+  //切换数据源
   select(item: DataSourceItem) {
     this.$emit('update:value', item.value);
   }
 }
+
 </script>
 
 <style lang="scss" scoped>
@@ -52,7 +65,6 @@ export default class Tabs extends Vue {
     position: relative;
     &.selected {
       background: #FFE459;
-
       &.selected::after {
         content: '';
         position: absolute;

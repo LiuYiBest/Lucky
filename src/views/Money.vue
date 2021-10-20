@@ -37,11 +37,13 @@ import recordTypeList from '@/constants/recordTypeList';
 @Component({
   components: {Tabs, Tags, FormItem, NumberPad},
 })
+
 export default class Money extends Vue {
   get recordList() {
     return this.$store.state.recordList;
   }
 
+  //支持和收入常量
   recordTypeList = recordTypeList;
 
   //声明一个记录

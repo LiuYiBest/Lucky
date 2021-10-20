@@ -19,6 +19,7 @@ new Vue({
     render: h => h(App)
 }).$mount('#app');
 
+
 if (document.documentElement.clientWidth) {
     window.alert('为了预览效果，请使用手机打开招财猫记账');
     const img = document.createElement('img');

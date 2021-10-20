@@ -26,6 +26,7 @@ export default class Tags extends mixins(TagHelper) {
   //定义选中的字符串数组
   selectedTags: string[] = [];
 
+  //读取数据仓库中的Tas列表
   get tagList() {
     return this.$store.state.tagList;
   }

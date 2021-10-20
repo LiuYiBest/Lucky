@@ -1,9 +1,12 @@
 <template>
   <Layout>
+
     <Tabs class-prefix="type" :data-source="recordTypeList" :value.sync="type"/>
+
     <div class="chart-wrapper" ref="chartWrapper">
       <Chart class="chart" :options="chartOptions"/>
     </div>
+
     <ol v-if="groupedList.length>0">
       <li v-for="(group, index) in groupedList" :key="index">
         <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
@@ -18,9 +21,11 @@
         </ol>
       </li>
     </ol>
+
     <div v-else class="noResult">
       目前没有相关记录
     </div>
+
   </Layout>
 </template>
 <script lang="ts">
@@ -37,17 +42,30 @@ import day from 'dayjs';
 @Component({
   components: {Tabs, Chart},
 })
+
 export default class Statistics extends Vue {
+
   tagString(tags: Tag[]) {
     return tags.length === 0 ? '无' :
         tags.map(t => t.name).join('，');
   }
 
+  //获取记录的数据
+  get recordList() {
+    return (this.$store.state as RootState).recordList;
+  }
+
+  //获取
   mounted() {
-    // console.log(this.groupedList);
     const div = (this.$refs.chartWrapper as HTMLDivElement);
     div.scrollLeft = div.scrollWidth;
   }
+
+  type = '-';
+
+  //使用支持和收入常量
+  recordTypeList = recordTypeList;
+
 
   beautify(string: string) {
     const day = dayjs(string);
@@ -89,7 +107,6 @@ export default class Statistics extends Vue {
       }
     });
     return array;
-
   }
 
   get chartOptions() {
@@ -132,9 +149,7 @@ export default class Statistics extends Vue {
     };
   }
 
-  get recordList() {
-    return (this.$store.state as RootState).recordList;
-  }
+
 
   get groupedList() {
     const {recordList} = this;
@@ -144,7 +159,11 @@ export default class Statistics extends Vue {
     if (newList.length === 0) {
       return [];
     }
+
+
     type Result = { title: string, total?: number, items: RecordItem[] }[]
+
+    //获取时间
     const result: Result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
@@ -167,8 +186,7 @@ export default class Statistics extends Vue {
     this.$store.commit('fetchRecords');
   }
 
-  type = '-';
-  recordTypeList = recordTypeList;
+
 }
 </script>
 
@@ -191,7 +209,6 @@ export default class Statistics extends Vue {
       background: #FFE459;
 
       &::after {
-        //display: none;
         content: '';
         position: absolute;
         bottom: 0;
