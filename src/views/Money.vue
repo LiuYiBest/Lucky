@@ -43,10 +43,8 @@ export default class Money extends Vue {
     return this.$store.state.recordList;
   }
 
-  //支持和收入常量
   recordTypeList = recordTypeList;
 
-  //声明一个记录
   record: RecordItem = {
     tags: [], notes: '', type: '-', amount: 0, createdAt: new Date().toISOString()
   };
@@ -59,7 +57,6 @@ export default class Money extends Vue {
     this.record.notes = value;
   }
 
-  //保存Tags标签
   saveRecord() {
     if (!this.record.tags || this.record.tags.length === 0) {
       return window.alert('请至少选择一个标签');

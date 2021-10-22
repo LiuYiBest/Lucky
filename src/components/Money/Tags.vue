@@ -4,7 +4,6 @@
       <button @click="createTag">新增标签</button>
     </div>
 
-<!--    选择对应索引的标签，然后修改选中标签的样式-->
     <ul class="current">
       <li v-for="tag in tagList" :key="tag.id"
           :class="{selected: selectedTags.indexOf(tag)>=0}"
@@ -23,31 +22,23 @@ import TagHelper from '@/mixins/TagHelper';
 
 @Component
 export default class Tags extends mixins(TagHelper) {
-  //定义选中的字符串数组
   selectedTags: string[] = [];
 
-  //读取数据仓库中的Tas列表
   get tagList() {
     return this.$store.state.tagList;
   }
 
-  //创建新增标签到数据仓库
   created() {
     this.$store.commit('fetchTags');
   }
 
-  //选中和取消的标签
   toggle(tag: string) {
-    //设置index为当前选中的tag索引
     const index = this.selectedTags.indexOf(tag);
-    //索引大于0 则在里面
     if (index >= 0) {
-      //从index后删除1个
       this.selectedTags.splice(index, 1);
     } else {
       this.selectedTags.push(tag);
     }
-    //将this.selectedTags作为携带的参数  发射给外面的value事件
     this.$emit('update:value', this.selectedTags);
   }
 }

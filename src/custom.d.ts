@@ -1,4 +1,3 @@
-//基础类型
 type RootState = {
     recordList: RecordItem[],      //Money四个组件的值 为数组类型
     createTagError:Error|null,      //创建标签失败
@@ -6,7 +5,6 @@ type RootState = {
     currentTag?: Tag                //当前的标签
 }
 
-//为Money四个组件值的类型
 type RecordItem = {
     tags: Tag[]          //标签数组
     notes: string         //备注
@@ -22,13 +20,5 @@ type Tag = {
 }
 
 
-// type TagListModel = {
-//     data: Tag[]
-//     fetch: () => Tag[]
-//     create: (name: string) => 'success' | 'duplicated' // 联合类型
-//     update: (id: string, name: string) => 'success' | 'not found' | 'duplicated'
-//     remove: (id: string) => boolean
-//     save: () => void
-// }
 
 interface Window {}

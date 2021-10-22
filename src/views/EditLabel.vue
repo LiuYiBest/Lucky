@@ -30,20 +30,14 @@ import Button from '@/components/Button.vue';
 
 export default class EditLabel extends Vue {
 
-  //获取当前的Tag
   get tag() {
     return this.$store.state.currentTag;
   }
 
-  //创建Tag
   created() {
-    //获取路由的id
     const id = this.$route.params.id;
-    //获取Tags
     this.$store.commit('fetchTags');
-    //传入当前的路由id
     this.$store.commit('setCurrentTag', id);
-    //找不到当前的tag页面 返回404
     if (!this.tag) {
       this.$router.replace('/404');
     } else {
@@ -51,7 +45,6 @@ export default class EditLabel extends Vue {
     }
   }
 
-  //更新标签   需要传递当前标签的id 和修改的name
   update(name: string) {
     if (this.tag) {
       this.$store.commit('updateTag', {
@@ -60,14 +53,12 @@ export default class EditLabel extends Vue {
     }
   }
 
-  //删除标签
   remove() {
     if (this.tag) {
       this.$store.commit('removeTag', this.tag.id);
     }
   }
 
-  //回到上一级路径
   goBack() {
     this.$router.back();
   }

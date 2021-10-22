@@ -29,25 +29,17 @@ export default class NumberPad extends Vue {
   output = this.value.toString();
 
   inputContent(event: MouseEvent) {
-    //强制为按钮元素
     const button = (event.target as HTMLButtonElement);
-    //获取输入的内容  强制断言非空
     const input = button.textContent!;
-    //长度不能大于16
     if (this.output.length === 16) { return; }
-
     if (this.output === '0') {
-      //如果是0到9的索引大于0
       if ('0123456789'.indexOf(input) >= 0) {
-        //如果是数字则替换
         this.output = input;
       } else {
-        //如果是点则追加
         this.output += input;
       }
       return;
     }
-    //如果索引中有一个点 泽返回  没有就输入点
     if (this.output.indexOf('.') >= 0 && input === '.') {return;}
     this.output += input;
   }
@@ -56,7 +48,7 @@ export default class NumberPad extends Vue {
     if (this.output.length === 1) {
       this.output = '0';
     } else {
-      this.output = this.output.slice(0, -1);//使用slice长度减1
+      this.output = this.output.slice(0, -1);
     }
   }
 
@@ -64,7 +56,6 @@ export default class NumberPad extends Vue {
     this.output = '0';
   }
 
-  //确认事件 将值传递出去  并且数字为0
   ok() {
     const number = parseFloat(this.output);
     this.$emit('update:value', number);
@@ -114,61 +105,4 @@ export default class NumberPad extends Vue {
     }
   }
 }
-//@import "~@/assets/style/helper.scss";
-//.numberPad {
-//  .output {
-//    @extend %clearFix;
-//    @extend %innerShadow;
-//    font-size: 36px;
-//    font-family: Consolas, monospace;
-//    padding: 9px 16px;
-//    text-align: right;
-//    height: 72px;
-//  }
-//  .buttons {
-//    @extend %clearFix;
-//    > button {
-//      width: 25%;
-//      height: 64px;
-//      float: left;
-//      background: transparent;
-//      border: none;
-//      &.ok {
-//        height: 64*2px;
-//        float: right;
-//      }
-//      &.zero {
-//        width: 25*2%;
-//      }
-//      $bg: #dde6eb;
-//      &:nth-child(1) {
-//        background: $bg;
-//      }
-//      &:nth-child(2), &:nth-child(5) {
-//        background: darken($bg, 4%);
-//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-//      }
-//      &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-//        background: darken($bg, 4*2%);
-//      }
-//      &:nth-child(4), &:nth-child(7), &:nth-child(10) {
-//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-//        background: darken($bg, 4*3%);
-//      }
-//      &:nth-child(8), &:nth-child(11), &:nth-child(13) {
-//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-//        background: darken($bg, 4*4%);
-//      }
-//      &:nth-child(14) {
-//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-//        background: darken($bg, 4*5%);
-//      }
-//      &:nth-child(12) {
-//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
-//        background: darken($bg, 4*6%);
-//      }
-//    }
-//  }
-//}
 </style>

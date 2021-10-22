@@ -9,7 +9,6 @@ import EditLabel from '@/views/EditLabel.vue';
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
-    //根路径
     {
         path: '/',
         redirect: '/money'

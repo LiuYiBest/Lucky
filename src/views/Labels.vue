@@ -3,7 +3,7 @@
   <Layout>
     <header class="header">
       <div class="logo">
-        <img src="../assets/lucky.png" alt="招财猫记账" />
+        <img src="../assets/cat.png" alt="招财猫记账" />
       </div>
     </header>
     <div class="tags">
@@ -40,7 +40,6 @@ export default class Labels extends mixins(TagHelper) {
     return this.$store.state.tagList;
   }
 
-  //重新获取
   beforeCreate() {
     this.$store.commit('fetchTags');
   }
@@ -56,17 +55,21 @@ export default class Labels extends mixins(TagHelper) {
   background: #ffe459;
   height: 80px;
   width: 100%;
+  position: relative;
+
   .logo{
     img {
-      height: 60px;
-      padding-left: 40px;
-      vertical-align: top;
-      margin-top: 10px;
-      margin-left: auto;
-      margin-right: auto;
+
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      min-width: 60%;
+      min-height: 60%;
+      transform:translate(-50%,-50%);
     }
   }
 }
+
 
 .tags {
   background: white;
