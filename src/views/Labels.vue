@@ -1,5 +1,11 @@
 <template>
+
   <Layout>
+    <header class="header">
+      <div class="logo">
+        <img src="../assets/lucky.png" alt="招财猫记账" />
+      </div>
+    </header>
     <div class="tags">
       <router-link class="tag"
                    v-for="tag in tags" :key="tag.id"
@@ -12,7 +18,7 @@
     <div class="createTag-wrapper">
       <Button class="createTag"
               @click="createTag">
-        新增标签
+        <span>新增标签</span>
       </Button>
     </div>
 
@@ -30,7 +36,6 @@ import TagHelper from '@/mixins/TagHelper';
 })
 export default class Labels extends mixins(TagHelper) {
 
-
   get tags(){
     return this.$store.state.tagList;
   }
@@ -44,6 +49,25 @@ export default class Labels extends mixins(TagHelper) {
 </script>
 
 <style lang="scss" scoped>
+
+.header{
+  overflow: hidden;
+
+  background: #ffe459;
+  height: 80px;
+  width: 100%;
+  .logo{
+    img {
+      height: 60px;
+      padding-left: 40px;
+      vertical-align: top;
+      margin-top: 10px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
 .tags {
   background: white;
   font-size: 16px;
@@ -63,12 +87,15 @@ export default class Labels extends mixins(TagHelper) {
   }
 }
 .createTag {
-  background: #c89b40;
+  background: #ffe459;
   color: white;
   border-radius: 4px;
   border: none;
   height: 40px;
   padding: 0 16px;
+  span {
+    color: black;
+  }
   &-wrapper {
     text-align: center;
     padding: 16px;

@@ -105,6 +105,7 @@ export default class EditLabel extends Vue {
   margin-top: 44-16px;
 }
 .moveTag{
-  background-color: #c89b40;
+  color: black;
+  background-color: #ffe459;
 }
 </style>

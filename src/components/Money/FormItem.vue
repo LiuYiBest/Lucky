@@ -34,6 +34,7 @@ export default class FormItem extends Vue {
   @Prop({required: true}) fieldName!: string;
 
   @Prop() placeholder?: string;
+
   @Prop() type?:string;
 
   onValueChanged(value: string) {

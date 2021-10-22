@@ -8,7 +8,6 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
 
-
     state: {
         recordList: [],
         tagList: [],
@@ -63,7 +62,6 @@ const store = new Vuex.Store({
             } else {
                 window.alert('删除失败');
             }
-
         },
 
         //获取Tags标签
@@ -74,12 +72,11 @@ const store = new Vuex.Store({
             //模拟Tags数据
             if (!state.tagList || state.tagList.length === 0) {
                 store.commit('createTag','服装');
-                store.commit('createTag','餐饮');
+                store.commit('createTag','美食');
                 store.commit('createTag','交通');
                 store.commit('createTag','书籍');
-                store.commit('createTag','旅行');
-                store.commit('createTag','住房');
-                store.commit('createTag','理财');
+                store.commit('createTag','生活');
+                store.commit('createTag','基金');
             }
         },
 
@@ -108,21 +105,16 @@ const store = new Vuex.Store({
         },
 
 
-
         //Records就是Money.vue中四个组件的所记录的值
         //获取记录的值存储到本地   由于存储的是字符串，需要将JSON字符串反序列化成JSON对象
         fetchRecords(state) {
             state.recordList = JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
             // 模拟Records数据
             if (!state.recordList || state.recordList.length === 0) {
-                store.commit('createRecord',{tags: [{id: "6", name: "住房"}], notes: "123", type: "-", amount: 52, createdAt: "2021-10-08"});
-                store.commit('createRecord',{tags: [{id: "6", name: "住房"}], notes: "11223", type: "-", amount: 512, createdAt: "2021-10-10"});
-                // store.commit('createRecord','');
-                // store.commit('createRecord','');
-                // store.commit('createRecord','服装');
-                // store.commit('createRecord','服装');
-                // store.commit('createRecord','服装');
-                // store.commit('createRecord','服装');
+                store.commit('createRecord',{tags: [{id: "1", name: "服装"}], notes: "买衣服", type: "-", amount: 152, createdAt: "2021-10-20"});
+                store.commit('createRecord',{tags: [{id: "2", name: "美食"}], notes: "吃吃吃", type: "-", amount: 34, createdAt: "2021-10-22"});
+
+
             }
         },
 
@@ -130,7 +122,7 @@ const store = new Vuex.Store({
         createRecord(state, record) {
             //创建一个record2       克隆一个record的深拷贝   使用clone方法
             const record2: RecordItem = clone(record);
-            //创建记录的时间    将当前时间转为字符串
+            //没有时间才赋值
             record2.createdAt = record2.createdAt|| new Date().toISOString();
             //将record2的值push到recordList中
             state.recordList.push(record2);

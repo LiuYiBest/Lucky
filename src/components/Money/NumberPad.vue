@@ -75,55 +75,100 @@ export default class NumberPad extends Vue {
 </script>
 
 <style lang="scss" scoped>
-@import "~@/assets/style/helper.scss";
 .numberPad {
+  //background: #a4c8c0;
+  background:  linear-gradient(to top, #c4c5c7 0%, #dcdddf 52%, #ebebeb 100%);
+  display: flex;
+  flex-direction: column;
+
   .output {
-    @extend %clearFix;
-    @extend %innerShadow;
-    font-size: 36px;
+    font-size: 26px;
     font-family: Consolas, monospace;
-    padding: 9px 16px;
     text-align: right;
-    height: 72px;
+    border: 1px solid #333;
+    border-radius: 10px;
+    background: white;
+    padding: 0 5px;
+    margin: 4px 2px;
   }
+
   .buttons {
-    @extend %clearFix;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    flex-grow: 1;
+    padding: 4px;
+    margin: 1px 3px;
+
     > button {
-      width: 25%;
-      height: 64px;
-      float: left;
-      background: transparent;
-      border: none;
-      &.ok {
-        height: 64*2px;
-        float: right;
-      }
-      &.zero {
-        width: 25*2%;
-      }
-      $bg: #F2F2F2;
-      &:nth-child(1) {
-        background: $bg;
-      }
-      &:nth-child(2), &:nth-child(5) {
-        background: darken($bg, 4%);
-      }
-      &:nth-child(3), &:nth-child(6), &:nth-child(9) {
-        background: darken($bg, 4*2%);
-      }
-      &:nth-child(4), &:nth-child(7), &:nth-child(10) {
-        background: darken($bg, 4*3%);
-      }
-      &:nth-child(8), &:nth-child(11), &:nth-child(13) {
-        background: darken($bg, 4*4%);
-      }
-      &:nth-child(14) {
-        background: darken($bg, 4*5%);
-      }
-      &:nth-child(12) {
-        background: darken($bg, 4*6%);
-      }
+      font-weight:bold;
+      width: 20%;
+      border: 2px solid #333;
+      border-radius: 10px;
+      background: white;
+      flex-grow: 1;
+      padding: 8px;
+      margin: 6px;
+      font-size: 16px;
+      flex-shrink: 1;
     }
   }
 }
+//@import "~@/assets/style/helper.scss";
+//.numberPad {
+//  .output {
+//    @extend %clearFix;
+//    @extend %innerShadow;
+//    font-size: 36px;
+//    font-family: Consolas, monospace;
+//    padding: 9px 16px;
+//    text-align: right;
+//    height: 72px;
+//  }
+//  .buttons {
+//    @extend %clearFix;
+//    > button {
+//      width: 25%;
+//      height: 64px;
+//      float: left;
+//      background: transparent;
+//      border: none;
+//      &.ok {
+//        height: 64*2px;
+//        float: right;
+//      }
+//      &.zero {
+//        width: 25*2%;
+//      }
+//      $bg: #dde6eb;
+//      &:nth-child(1) {
+//        background: $bg;
+//      }
+//      &:nth-child(2), &:nth-child(5) {
+//        background: darken($bg, 4%);
+//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+//      }
+//      &:nth-child(3), &:nth-child(6), &:nth-child(9) {
+//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+//        background: darken($bg, 4*2%);
+//      }
+//      &:nth-child(4), &:nth-child(7), &:nth-child(10) {
+//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+//        background: darken($bg, 4*3%);
+//      }
+//      &:nth-child(8), &:nth-child(11), &:nth-child(13) {
+//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+//        background: darken($bg, 4*4%);
+//      }
+//      &:nth-child(14) {
+//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+//        background: darken($bg, 4*5%);
+//      }
+//      &:nth-child(12) {
+//        box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+//        background: darken($bg, 4*6%);
+//      }
+//    }
+//  }
+//}
 </style>

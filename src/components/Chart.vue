@@ -11,6 +11,7 @@ export default class Chart extends Vue {
   @Prop() options?: EChartOption;
   chart?: ECharts;
 
+  //挂载options
   mounted() {
     if (this.options === undefined) {
       return console.error('options 为空');
@@ -19,11 +20,13 @@ export default class Chart extends Vue {
     this.chart.setOption(this.options);
   }
 
+  //自动更新options
   @Watch('options')
   onOptionsChange(newValue: EChartOption) {
     this.chart!.setOption(newValue);
   }
 }
+
 </script>
 
 <style scoped lang="scss">

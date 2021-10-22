@@ -65,9 +65,13 @@ export default class Tags extends mixins(TagHelper) {
   > .current {
     display: flex;
     flex-wrap: wrap;
+    margin-left: 20px;
     > li {
-      $bg: #fff7ae;
-      background: $bg;
+      border: 2px solid #333;
+      border-radius: 10px;
+      background: white;
+      $bg: #fff47d;
+      //background: $bg;
       $h: 24px;
       height: $h;
       line-height: $h;
@@ -75,9 +79,9 @@ export default class Tags extends mixins(TagHelper) {
       padding: 0 16px;
       margin-right: 12px;
       margin-top: 4px;
+      display: flex;
       &.selected {
-        background: darken($bg, 50%);
-        color: white;
+        background: #ffa400;
       }
     }
   }
@@ -86,7 +90,7 @@ export default class Tags extends mixins(TagHelper) {
     button {
       background: transparent;
       border: none;
-      color: #999;
+      color: #000000;
       border-bottom: 1px solid;
       padding: 0 4px;
     }

@@ -7,9 +7,9 @@
       <Chart class="chart" :options="chartOptions"/>
     </div>
 
-    <ol v-if="groupedList.length>0">
-      <li v-for="(group, index) in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }} <span>￥{{ group.total }}</span></h3>
+    <ol v-if="groupedList.length>0" class="scrollbar">
+      <li v-for="(group, index) in groupedList" :key="index" >
+        <h3 class="title">{{ beautify(group.title) }} <span>总计:￥{{ group.total }}</span></h3>
         <ol>
           <li v-for="item in group.items" :key="item.id"
               class="record"
@@ -22,8 +22,11 @@
       </li>
     </ol>
 
-    <div v-else class="noResult">
-      目前没有相关记录
+    <div v-else class="notResult">
+      <h3>
+         目前没有相关记录,快去记录一笔吧~
+      </h3>
+      <Icon name="notData"></Icon>
     </div>
 
   </Layout>
@@ -55,7 +58,7 @@ export default class Statistics extends Vue {
     return (this.$store.state as RootState).recordList;
   }
 
-  //获取
+  //chart滚动条设置为最右边
   mounted() {
     const div = (this.$refs.chartWrapper as HTMLDivElement);
     div.scrollLeft = div.scrollWidth;
@@ -70,9 +73,8 @@ export default class Statistics extends Vue {
   beautify(string: string) {
     const day = dayjs(string);
     const now = dayjs();
-
     if (day.isSame(now, 'day')) {
-      return '今天';
+      return '今天' ;
     } else if (day.isSame(now.subtract(1, 'day'), 'day')) {
       return '昨天';
     } else if (day.isSame(now.subtract(2, 'day'), 'day')) {
@@ -84,6 +86,7 @@ export default class Statistics extends Vue {
     }
   }
 
+  //桶排序计算日期
   get keyValueList() {
     const today = new Date();
     const array = [];
@@ -97,6 +100,7 @@ export default class Statistics extends Vue {
         key: dateString, value: found ? found.total : 0
       });
     }
+    //排序日期
     array.sort((a, b) => {
       if (a.key > b.key) {
         return 1;
@@ -109,10 +113,10 @@ export default class Statistics extends Vue {
     return array;
   }
 
+  //使用echarts的选项
   get chartOptions() {
     const keys = this.keyValueList.map(item => item.key);
     const values = this.keyValueList.map(item => item.value);
-
     return {
       grid: {
         left: 0,
@@ -124,6 +128,7 @@ export default class Statistics extends Vue {
         axisTick: {alignWithLabel: true},
         axisLine: {lineStyle: {color: '#666'}},
         axisLabel: {
+
           formatter: function (value: string, index: number) {
             return value.substr(5);
           }
@@ -136,8 +141,7 @@ export default class Statistics extends Vue {
       series: [{
         symbol: 'circle',
         symbolSize: 12,
-        itemStyle: {borderWidth: 1, color: '#666', borderColor: '#666'},
-        // lineStyle: {width: 10},
+        itemStyle: {borderWidth: 1, color: '#59d2d9', borderColor: '#ff9996'},
         data: values,
         type: 'line'
       }],
@@ -184,6 +188,7 @@ export default class Statistics extends Vue {
     return result;
   }
 
+  //重新获取数据
   beforeCreate() {
     this.$store.commit('fetchRecords');
   }
@@ -193,15 +198,24 @@ export default class Statistics extends Vue {
 </script>
 
 <style scoped lang="scss">
+
+
+
 .echarts {
   max-width: 100%;
   height: 400px;
 }
 
-.noResult {
+.notResult {
   padding: 16px;
-  text-align: center;
+  display: block;
+text-align: center;
+  .icon {
+    width: 6em;
+    height: 6em;
+  }
 }
+
 
 ::v-deep {
   .type-tabs-item {
@@ -217,7 +231,6 @@ export default class Statistics extends Vue {
         left: 0;
         width: 100%;
         height: 4px;
-        //background: #666
         background: linear-gradient(90deg, rgba(175,221,34,1) 0%, rgba(222,230,240,1) 38%, rgba(233,231,239,1) 58%, rgba(0,212,255,1) 100%);
 
       }
@@ -230,17 +243,18 @@ export default class Statistics extends Vue {
 }
 
 %item {
-  padding: 8px 16px;
-  line-height: 24px;
+  padding: 6px 12px;
+  line-height: 16px;
   display: flex;
   justify-content: space-between;
   align-content: center;
 }
 
+
+
 .title {
   @extend %item;
 }
-
 .record {
   background: white;
   @extend %item;
@@ -253,7 +267,7 @@ export default class Statistics extends Vue {
 }
 
 .chart {
-  width: 430%;
+  width: 420%;
 
   &-wrapper {
     overflow: auto;
@@ -263,4 +277,5 @@ export default class Statistics extends Vue {
     }
   }
 }
+
 </style>
