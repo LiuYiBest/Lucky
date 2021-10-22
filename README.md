@@ -1,5 +1,5 @@
 # 招财猫记账
-
+招财猫记账是一款简洁的单页面应用。
 
 ## 技术栈
 - Vue
@@ -10,13 +10,17 @@
 - Echarts
 - ......
 
+## Project setup
 
-## 项目运行
 ```
 yarn install
-yarn serve
 ```
 
+### Compiles and hot-reloads for development
+
+```
+yarn serve
+```
 
 
 ### Compiles and minifies for production
