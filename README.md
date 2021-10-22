@@ -2,8 +2,13 @@
 
 
 ## 技术栈
-vue2 + vue-router + vuex + typescript + echarts.js + svg
-
+- Vue
+- Vuex
+- Vue-router 
+- ES6
+- TypeScript
+- Echarts
+- ......
 
 
 ## 项目运行
