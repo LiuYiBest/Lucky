@@ -1,14 +1,18 @@
-# luckycat
+# 招财猫记账
 
-## Project setup
+
+## 技术栈
+vue2 + vue-router + vuex + typescript + echarts.js + svg
+
+
+
+## 项目运行
 ```
 yarn install
-```
-
-### Compiles and hot-reloads for development
-```
 yarn serve
 ```
+
+
 
 ### Compiles and minifies for production
 ```
